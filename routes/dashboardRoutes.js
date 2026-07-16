@@ -14,7 +14,7 @@ const {
 } = require("../middleware/roleMiddleware");
 
 router.get(
-    "/summary",
+    "/",
     authenticateToken,
     authorizeRoles("admin"),
     getDashboardSummary
