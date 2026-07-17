@@ -10,9 +10,7 @@ exports.authenticateToken = (req, res, next) => {
         });
     }
 
-
     const token = authHeader.split(" ")[1];
-
 
     if (!token) {
         return res.status(401).json({
@@ -20,34 +18,18 @@ exports.authenticateToken = (req, res, next) => {
         });
     }
 
-
     try {
-
-        console.log("Received Token:", token);
-        console.log("JWT SECRET:", process.env.JWT_SECRET);
-
 
         const decoded = jwt.verify(
             token,
             process.env.JWT_SECRET
         );
 
-
-        console.log("Decoded User:", decoded);
-
-
         req.user = decoded;
-
-      console.log("Logged User:", req.user);
 
         next();
 
-
     } catch (error) {
-
-
-        console.log("JWT Error:", error.message);
-
 
         return res.status(401).json({
             message: "Invalid or expired token."
