@@ -3,7 +3,9 @@ const router = express.Router();
 
 const {
     getEmployees,
-    createEmployee
+    getEmployeeById,
+    createEmployee,
+    updateEmployee
 } = require("../controllers/employeeController");
 
 const {
@@ -14,8 +16,7 @@ const {
     authorizeRoles
 } = require("../middleware/roleMiddleware");
 
-
-// Admin can view employees
+// Get all employees
 router.get(
     "/",
     authenticateToken,
@@ -23,8 +24,15 @@ router.get(
     getEmployees
 );
 
+// Get one employee
+router.get(
+    "/:id",
+    authenticateToken,
+    authorizeRoles("admin"),
+    getEmployeeById
+);
 
-// Admin can create employees
+// Create employee
 router.post(
     "/",
     authenticateToken,
@@ -32,5 +40,12 @@ router.post(
     createEmployee
 );
 
+// Update employee
+router.put(
+    "/:id",
+    authenticateToken,
+    authorizeRoles("admin"),
+    updateEmployee
+);
 
 module.exports = router;
