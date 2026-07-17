@@ -16,6 +16,7 @@ exports.getEmployees = async (req, res) => {
                 email,
                 phone,
                 position,
+                department_id: 1,
                 role,
                 annual_leave_balance
             FROM employees
